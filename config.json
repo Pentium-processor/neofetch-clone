@@ -1,0 +1,16 @@
+{
+    "display_distro_info":true,
+    "Color":"\u001b[2;32m",
+    "image_source":"null",
+    "display_user":true,
+    "display_CPU_MODEL":true,
+    "display_uptime":true,
+    "display_shell":true,
+    "display_kernel":true,
+    "display_cpu_num":true,
+    "display_pwd":true,
+    "display_python_version":true,
+    "display_os_arch":true,
+    "number_of_threads_per_core":true,
+    "display_clockspeed":true
+}
