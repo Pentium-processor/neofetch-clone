@@ -6,7 +6,7 @@
     "display_python_version":true,
     "display_os_arch":true,
     "display_cache_size":true,
-    "image_source":"/home/ahan/ascii_art_folder/dragon_ascii_art.txt",
+    "image_source":null,
     "gap_value":7,
     "showMemAvail":true,
     "showMemFree":true,
