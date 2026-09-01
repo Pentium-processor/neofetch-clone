@@ -1,5 +1,4 @@
 {
-    "display_python_version":true,
     "display_cpu_model":true,
     "display_kernel":true,
     "display_cpu_num":true,
