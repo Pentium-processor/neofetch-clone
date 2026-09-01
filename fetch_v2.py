@@ -127,13 +127,13 @@ try:
     print(backslash_char*info_dict["gap_value"]+cpu_labels[2]+": "+cpu_specs[2])
 
  if info_dict["showMemAvail"]:
-    print(backslash_char*info_dict["gap_value"]+mem_labels[0]+str(memory_gigabyte_values[0])+" GB")
+    print(backslash_char*info_dict["gap_value"]+mem_labels[0]+str(memory_gigabyte_values[2])+" GB")
 
  if info_dict["showMemFree"]:
     print(backslash_char*info_dict["gap_value"]+mem_labels[1]+str(memory_gigabyte_values[1])+" GB")
 
  if info_dict["showMemTotal"]:
-    print(backslash_char*info_dict["gap_value"]+mem_labels[2]+str(memory_gigabyte_values[2])+" GB")
+    print(backslash_char*info_dict["gap_value"]+mem_labels[2]+str(memory_gigabyte_values[0])+" GB")
 
  if info_dict["display_kernel"]:
     print(backslash_char*info_dict["gap_value"]+"kernel: "+kernel_desc)
