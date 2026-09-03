@@ -1,7 +1,6 @@
 import argparse,json,distro,platform,os,psutil
 from time import sleep
 
-
 def convert_to_GB(mem_value):
 
     convert = lambda int_value:round(int_value/1e+6,2)
@@ -11,34 +10,32 @@ def convert_to_GB(mem_value):
 parser=argparse.ArgumentParser()
 
 tux_logo = '''
-
-        \033[0;30m        .88888888:.
-        \033[0;30m       88888888.88888.
-        \033[0;30m     .8888888888888888.
-        \033[0;30m     888888888888888888
-        \033[0;30m     88' _`88'_  `88888
-        \033[0;30m     88 88 88 88  88888
-        \033[0;30m     88_88_::_88_:88888
-        \033[0;30m     88:::,::,:::::8888
-        \033[0;30m     88`:::::::::  8888
-        \033[0;30m    .88 `::::'    8:88.
-        \033[0;30m   8888            `8:888.
-        \033[0;30m .8888'             `888888.
-        \033[0;30m.8888:..  .::.  ...:'8888888:.
-        \033[0;30m.8888.'     :'     `'::`88:88888
-       \033[0;30m.8888        '         `.888:8888.
-     \033[0;30m888:8         .           888:88888
-   \033[0;30m.888:88        .:           888:88888:
-   \033[0;30m8888888.       ::           88:888888
-   \033[0;30m`.::.888.      ::          .88888888
-  \033[0;30m.::::::.888.    ::         :::`8888'.:.
- \033[0;30m::::::::::.888   '         .::::::::::::
- \033[0;30m::::::::::::.8    '      .:8::::::::::::.
-\033[0;30m.::::::::::::::.        .:888:::::::::::::
-\033[0;30m:::::::::::::::88:.__..:88888:::::::::::'
- \033[0;30m`'.:::::::::::88888888888.88:::::::::'
-       \033[0;30m`':::_:' -- '' -'-' `':_::::'`
-
+                          .88888888:.
+                         88888888.88888.
+                       .8888888888888888.
+                       888888888888888888
+                       88' _`88'_  `88888
+                       88 88 88 88  88888
+                       88_88_::_88_:88888
+                       88:::,::,:::::8888
+                       88`:::::::::  8888
+                      .88  `::::'    8:88.
+                      8888            `8:888.
+                    .8888'             `888888.
+                   .8888:..  .::.  ...:'8888888:.
+                 .8888.'     :'     `'::`88:88888
+                .8888        '         `.888:8888.
+               888:8         .           888:88888
+             .888:88        .:           888:88888:
+            8888888.       ::           88:888888
+            `.::.888.      ::          .88888888
+           .::::::.888.    ::         :::`8888'.:.
+          :::::::::.888   '         .::::::::::::
+           ::::::::::::.8    '      .:8::::::::::::.
+          ::::::::::::::.        .:888:::::::::::::
+         :::::::::::::::88:.__..:88888:::::::::::'
+         `'.:::::::::::88888888888.88:::::::::'
+               `':::_:' -- '' -'-' `':_::::'`
 '''
 
 # ----CUSTOM FLAGS-----
@@ -53,6 +50,8 @@ distro_info = distro.os_release_info()["pretty_name"] #Name of linux distro and 
 hardware_arch = platform.machine() # Hardware Architecture
 python_version = platform.python_version() # Python Version
 kernel_desc = platform.platform() # Provides Kernel Description
+
+#If this function is not supported on your machine, the program will not display the battery percent value
 
 if psutil.sensors_battery() is not None:
 
@@ -90,20 +89,40 @@ try:
   open_logo_file = open(info_dict["image_source"],"r").readlines()
 
  if args.logo:
-    exit(info_dict["color"]+"".join(open_logo_file))
+
+     if info_dict["color"] == None:
+       exit("".join(open_logo_file))
+
+     elif info_dict["image_source"] == None:
+        exit("".join(tux_logo))
+
+     else:
+       exit(info_dict["color"]+"".join(open_logo_file))
 
  elif args.stdout:
      backslash_char = "\b"
 
  elif args.scroll:
 
-     for line in open_logo_file:
+     if info_dict["image_source"] != None:
+
+      for line in open_logo_file:
          sleep(0.1)
 
          if info_dict["color"] == None:
            print(line,end="")
          else:
            print(info_dict["color"]+line,end="")
+
+     else:
+
+         for line in tux_logo:
+             print(line,end="")
+             sleep(0.01)
+
+     exit("")
+
+
 
  elif info_dict["image_source"] is None:
      print(tux_logo)
@@ -158,6 +177,6 @@ except FileNotFoundError:
 
          exit("\u001b[31m config.json does not exist")
 
-     elif os.path.exists(info_dict["image_source"]) == False:
+     if os.path.exists(info_dict["image_source"]) == False:
 
          exit('\u001b[31m'+f"File \'{info_dict['image_source']}\' does not exist "+'\u001b[37m')
